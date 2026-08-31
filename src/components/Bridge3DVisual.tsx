@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Users, Shield, Building2, ArrowRight } from 'lucide-react';
-import { BridgxEmblem } from './BridgxLogo';
+import { BridgxLogo, BridgxEmblem } from './BridgxLogo';
 
 export const Bridge3DVisual: React.FC = () => {
   const mountRef = useRef<HTMLDivElement | null>(null);
@@ -369,11 +369,8 @@ export const Bridge3DVisual: React.FC = () => {
               {/* Ambient Neon Glow Halo */}
               <div className="absolute -inset-1 bg-gradient-to-r from-[#1688FF] via-[#00D9FF] to-[#1688FF] rounded-full blur-[6px] opacity-75 animate-pulse"></div>
               
-              <div className="relative flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#05080D] border border-[#00D9FF]/70 shadow-[0_0_20px_rgba(0,217,255,0.4),0_0_10px_rgba(22,136,255,0.6)]">
-                <BridgxEmblem className="w-4 h-3.5" theme="dark" showGlow={false} />
-                <span className="text-xs sm:text-sm font-extrabold text-[#F5F7FA] tracking-wider">
-                  BRIDG<span className="text-[#00D9FF]">X</span>
-                </span>
+              <div className="relative flex items-center justify-center px-4 py-1.5 rounded-full bg-[#05080D] border border-[#00D9FF]/70 shadow-[0_0_20px_rgba(0,217,255,0.4),0_0_10px_rgba(22,136,255,0.6)]">
+                <BridgxLogo variant="wordmark" size="sm" theme="dark" showGlow={false} />
               </div>
             </div>
             <span className="text-[10px] text-[#AAB7C7] font-mono mt-1.5 font-semibold tracking-tight">

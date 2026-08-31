@@ -125,11 +125,11 @@ export const BridgxLogo: React.FC<BridgxLogoProps> = ({
 }) => {
   // Dimension tokens
   const sizeMap = {
-    xs: { emblem: 'w-4 h-4', text: 'text-base', emblemInline: 'w-4 h-3.5' },
-    sm: { emblem: 'w-6 h-6', text: 'text-lg sm:text-xl', emblemInline: 'w-6 h-5' },
-    md: { emblem: 'w-8 h-8', text: 'text-2xl', emblemInline: 'w-7 h-5.5' },
-    lg: { emblem: 'w-10 h-10', text: 'text-3xl', emblemInline: 'w-9 h-7' },
-    xl: { emblem: 'w-14 h-14', text: 'text-4xl sm:text-5xl', emblemInline: 'w-12 h-9.5' },
+    xs: { emblem: 'w-4 h-4', text: 'text-xs sm:text-sm', emblemInline: 'w-3.5 h-3' },
+    sm: { emblem: 'w-5 h-5', text: 'text-sm sm:text-base', emblemInline: 'w-4.5 h-3.5' },
+    md: { emblem: 'w-7 h-7', text: 'text-xl sm:text-2xl', emblemInline: 'w-6 h-4.5' },
+    lg: { emblem: 'w-9 h-9', text: 'text-2xl sm:text-3xl', emblemInline: 'w-8 h-6' },
+    xl: { emblem: 'w-14 h-14', text: 'text-4xl sm:text-5xl', emblemInline: 'w-12 h-9' },
   }[size];
 
   const currentTheme = theme === 'auto' ? 'dark' : theme;
