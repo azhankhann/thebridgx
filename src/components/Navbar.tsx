@@ -3,7 +3,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { BridgxLogo } from './BridgxLogo';
 
 interface NavbarProps {
-  onCtaClick: () => void;
+  onCtaClick: (source?: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onCtaClick }) => {
@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCtaClick }) => {
         <div className="hidden md:flex items-center gap-4">
           <button
             id="nav-cta-btn"
-            onClick={onCtaClick}
+            onClick={() => onCtaClick('navbar_desktop')}
             className="inline-flex items-center justify-center gap-2 px-4.5 py-2 rounded-xl bg-gradient-to-r from-[#0B2344] via-[#0D305C] to-[#1688FF] text-white font-semibold text-xs tracking-tight border border-[#1688FF]/40 shadow-[0_0_15px_rgba(22,136,255,0.25)] hover:shadow-[0_0_25px_rgba(0,217,255,0.45)] hover:border-[#00D9FF]/70 transition-all duration-200 active:scale-[0.99] cursor-pointer"
           >
             <span>Get Your First Meeting Free</span>
@@ -110,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCtaClick }) => {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onCtaClick();
+                onCtaClick('navbar_mobile');
               }}
               className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#0B2344] via-[#0D305C] to-[#1688FF] border border-[#1688FF]/40 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(22,136,255,0.3)] hover:shadow-[0_0_30px_rgba(0,217,255,0.5)]"
             >

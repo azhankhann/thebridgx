@@ -2,7 +2,7 @@ import React from 'react';
 import { Target, Search, CheckCircle2, Calendar, ArrowRight } from 'lucide-react';
 
 interface HowItWorksProps {
-  onCtaClick: () => void;
+  onCtaClick: (source?: string) => void;
 }
 
 export const HowItWorksSection: React.FC<HowItWorksProps> = ({ onCtaClick }) => {
@@ -112,7 +112,7 @@ export const HowItWorksSection: React.FC<HowItWorksProps> = ({ onCtaClick }) => 
         {/* Bottom prompt */}
         <div className="mt-16 text-center">
           <button
-            onClick={onCtaClick}
+            onClick={() => onCtaClick('how_it_works')}
             className="inline-flex items-center gap-2 text-xs font-semibold text-[#AAB7C7] hover:text-[#00D9FF] transition-colors cursor-pointer group"
           >
             <span>Ready to activate your automated client pipeline?</span>

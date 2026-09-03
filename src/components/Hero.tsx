@@ -3,7 +3,7 @@ import { ArrowRight, ShieldCheck, Zap, Sparkles } from 'lucide-react';
 import { Bridge3DVisual } from './Bridge3DVisual';
 
 interface HeroProps {
-  onCtaClick: () => void;
+  onCtaClick: (source?: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
@@ -56,7 +56,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
             <button
               id="hero-primary-cta"
-              onClick={onCtaClick}
+              onClick={() => onCtaClick('hero')}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-[#0B2344] via-[#0D305C] to-[#1688FF] text-white font-bold text-sm tracking-tight border border-[#1688FF]/50 shadow-[0_0_25px_rgba(22,136,255,0.35)] hover:shadow-[0_0_35px_rgba(0,217,255,0.55)] hover:border-[#00D9FF]/80 transition-all duration-200 active:scale-[0.99] cursor-pointer group"
             >
               <span>Get Your First Meeting Free</span>

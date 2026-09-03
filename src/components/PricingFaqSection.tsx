@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Check, ChevronDown, Sparkles, HelpCircle, ArrowRight, Shield } from 'lucide-react';
 
 interface PricingFaqSectionProps {
-  onCtaClick: () => void;
+  onCtaClick: (source?: string) => void;
 }
 
 export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick }) => {
@@ -173,7 +173,7 @@ export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick
 
               {/* Card Action Button */}
               <button
-                onClick={onCtaClick}
+                onClick={() => onCtaClick(tier.highlight ? 'pricing_free_tier' : `pricing_${idx}`)}
                 className={`w-full py-3.5 px-4 rounded-xl font-semibold text-xs tracking-tight transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 ${
                   tier.highlight
                     ? 'bg-gradient-to-r from-[#1688FF] via-[#00D9FF] to-[#1688FF] text-[#05080D] font-bold shadow-[0_0_20px_rgba(0,217,255,0.4)] hover:shadow-[0_0_30px_rgba(0,217,255,0.7)] hover:brightness-110 active:scale-[0.99]'

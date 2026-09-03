@@ -7,9 +7,14 @@ import { WhyBridgxSection } from './components/WhyBridgxSection';
 import { PricingFaqSection } from './components/PricingFaqSection';
 import { FinalCtaContactSection } from './components/FinalCtaContactSection';
 import { Footer } from './components/Footer';
+import { trackEvent } from './lib/analytics';
 
 export default function App() {
-  const scrollToContact = () => {
+  const scrollToContact = (source: string = 'cta') => {
+    trackEvent('get_first_meeting_free_click', {
+      button_location: source,
+    });
+
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });

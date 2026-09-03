@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { ArrowRight, CheckCircle, Sparkles, Send, Lock, Clock } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ArrowRight, CheckCircle, Sparkles, Send, Lock, Clock, AlertCircle } from 'lucide-react';
 import { ContactFormData } from '../types';
+import { submitLeadToSupabase, invokeSendLeadEmail } from '../lib/supabase';
+import { trackEvent } from '../lib/analytics';
 
 export const FinalCtaContactSection: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -14,6 +16,17 @@ export const FinalCtaContactSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const hasStartedFormRef = useRef(false);
+
+  const triggerFormStart = () => {
+    if (!hasStartedFormRef.current) {
+      hasStartedFormRef.current = true;
+      trackEvent('contact_form_start', {
+        form_id: 'contact_form',
+        form_name: 'Request Your Free Meeting',
+      });
+    }
+  };
 
   const nicheOptions = [
     'Technology & Software',
@@ -29,26 +42,81 @@ export const FinalCtaContactSection: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    triggerFormStart();
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errorMsg) setErrorMsg('');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.agencyName.trim()) {
-      setErrorMsg('Please fill in your name, work email, and agency name.');
+
+    if (isSubmitting) return;
+
+    if (!formData.name.trim()) {
+      setErrorMsg('Please enter your name.');
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setErrorMsg('Please enter your work email.');
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      setErrorMsg('Please enter a valid work email address.');
+      return;
+    }
+
+    if (!formData.agencyName.trim()) {
+      setErrorMsg('Please enter your recruitment agency name.');
       return;
     }
 
     setIsSubmitting(true);
     setErrorMsg('');
 
-    // Simulate reliable form submission processing
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      agency: formData.agencyName,
+      recruitment_type: formData.niche,
+      message: formData.message,
+    };
+
+    try {
+      // 1. Insert the lead into Supabase first
+      await submitLeadToSupabase(payload);
+
+      // 2. Track generate_lead ONLY after successful insertion into Supabase
+      trackEvent('generate_lead', {
+        agency: payload.agency,
+        recruitment_type: payload.recruitment_type,
+      });
+
+      // 3. Show the existing success message only when database submission succeeds
       setIsSubmitted(true);
-    }, 800);
+
+      // 4. Only after database insert succeeds, invoke send-lead-email
+      // 5. If the email function fails, do NOT delete or undo the lead in Supabase; log error and keep lead saved.
+      try {
+        await invokeSendLeadEmail(payload);
+      } catch (emailErr) {
+        console.error('Failed to invoke send-lead-email Edge Function:', emailErr);
+      }
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : 'An unexpected error occurred while submitting. Please try again.';
+      setErrorMsg(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -59,6 +127,7 @@ export const FinalCtaContactSection: React.FC = () => {
       niche: 'Technology & Software',
       message: '',
     });
+    hasStartedFormRef.current = false;
     setIsSubmitted(false);
   };
 
@@ -164,7 +233,7 @@ export const FinalCtaContactSection: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} onFocusCapture={triggerFormStart} className="space-y-4">
                   <div>
                     <h3 className="text-xl font-bold text-[#F5F7FA] mb-1 tracking-tight">
                       Request Your Free Meeting
@@ -175,8 +244,9 @@ export const FinalCtaContactSection: React.FC = () => {
                   </div>
 
                   {errorMsg && (
-                    <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs">
-                      {errorMsg}
+                    <div className="p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                      <span className="leading-tight">{errorMsg}</span>
                     </div>
                   )}
 
@@ -289,6 +359,11 @@ export const FinalCtaContactSection: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
+                      onClick={() => {
+                        trackEvent('get_first_meeting_free_click', {
+                          button_location: 'contact_form_submit',
+                        });
+                      }}
                       className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#1688FF] via-[#00D9FF] to-[#1688FF] text-[#05080D] font-bold text-xs tracking-tight shadow-[0_0_20px_rgba(0,217,255,0.4)] hover:shadow-[0_0_30px_rgba(0,217,255,0.7)] hover:brightness-110 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
                     >
                       {isSubmitting ? (

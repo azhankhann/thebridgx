@@ -2,7 +2,7 @@ import React from 'react';
 import { UserX, Clock, PhoneOff, AlertTriangle, ArrowRight } from 'lucide-react';
 
 interface ProblemSectionProps {
-  onCtaClick: () => void;
+  onCtaClick: (source?: string) => void;
 }
 
 export const ProblemSection: React.FC<ProblemSectionProps> = ({ onCtaClick }) => {
@@ -98,7 +98,7 @@ export const ProblemSection: React.FC<ProblemSectionProps> = ({ onCtaClick }) =>
             </p>
           </div>
           <button
-            onClick={onCtaClick}
+            onClick={() => onCtaClick('problem_section')}
             className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#0B2344] via-[#0D305C] to-[#1688FF] text-white font-semibold text-xs tracking-tight border border-[#1688FF]/40 shadow-[0_0_15px_rgba(22,136,255,0.25)] hover:shadow-[0_0_25px_rgba(0,217,255,0.45)] hover:border-[#00D9FF]/70 transition-all cursor-pointer"
           >
             <span>Get Your First Meeting Free</span>
