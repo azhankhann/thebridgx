@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { ArrowRight, ShieldCheck, Zap, Sparkles } from 'lucide-react';
-import { Bridge3DVisual } from './Bridge3DVisual';
+import { BridgePlaceholder } from './BridgePlaceholder';
+
+const Bridge3DVisual = lazy(() => import('./Bridge3DVisual'));
 
 interface HeroProps {
   onCtaClick: (source?: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
+  const [shouldLoad3D, setShouldLoad3D] = useState(false);
+
+  useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+    if (isMobile) {
+      // On mobile, load after the main content, typography, and CTA have cleanly rendered
+      if ('requestIdleCallback' in window) {
+        const handle = (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => number }).requestIdleCallback(() => {
+          setShouldLoad3D(true);
+        }, { timeout: 800 });
+        return () => (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(handle);
+      } else {
+        const timer = setTimeout(() => {
+          setShouldLoad3D(true);
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    } else {
+      // Desktop: load right after initial mount
+      setShouldLoad3D(true);
+    }
+  }, []);
   return (
     <section
       id="hero"
@@ -89,9 +114,15 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           </div>
         </div>
 
-        {/* 3D Visual Section */}
-        <div className="mt-10">
-          <Bridge3DVisual />
+        {/* 3D Visual Section (Lightweight, deferred on mobile, zero CLS) */}
+        <div className="mt-10 min-h-[300px] sm:min-h-[340px]">
+          {shouldLoad3D ? (
+            <Suspense fallback={<BridgePlaceholder />}>
+              <Bridge3DVisual />
+            </Suspense>
+          ) : (
+            <BridgePlaceholder />
+          )}
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { OpeningIntroAnimation } from './components/OpeningIntroAnimation';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProblemSection } from './components/ProblemSection';
@@ -28,6 +29,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#05080D] text-[#F5F7FA] flex flex-col selection:bg-[#1688FF]/30 selection:text-white">
+      {/* Opening Intro Animation (plays once on initial load, ~1.1s) */}
+      <OpeningIntroAnimation />
+
       {/* 1. Navbar */}
       <Navbar onCtaClick={scrollToContact} />
 

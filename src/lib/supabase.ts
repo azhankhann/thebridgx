@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey =
@@ -8,11 +8,12 @@ const supabaseAnonKey =
 
 let supabaseInstance: SupabaseClient | null = null;
 
-export function getSupabaseClient(): SupabaseClient | null {
+export async function getSupabaseClient(): Promise<SupabaseClient | null> {
   if (!supabaseUrl || !supabaseAnonKey) {
     return null;
   }
   if (!supabaseInstance) {
+    const { createClient } = await import('@supabase/supabase-js');
     supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         persistSession: false,
@@ -37,7 +38,7 @@ export interface LeadInsertPayload {
  * (id, created_at, status will use database defaults)
  */
 export async function submitLeadToSupabase(payload: LeadInsertPayload) {
-  const supabase = getSupabaseClient();
+  const supabase = await getSupabaseClient();
 
   if (!supabase) {
     throw new Error(
@@ -78,7 +79,7 @@ export async function submitLeadToSupabase(payload: LeadInsertPayload) {
  * Called only after successful database insert.
  */
 export async function invokeSendLeadEmail(payload: LeadInsertPayload) {
-  const supabase = getSupabaseClient();
+  const supabase = await getSupabaseClient();
 
   if (!supabase) {
     console.warn('Supabase client is not configured; skipping send-lead-email invocation.');
