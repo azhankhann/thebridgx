@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
-import { Check, ChevronDown, Sparkles, HelpCircle, ArrowRight, Shield } from 'lucide-react';
+import { ChevronDown, HelpCircle, ArrowRight, Shield } from 'lucide-react';
 
 interface PricingFaqSectionProps {
   onCtaClick: (source?: string) => void;
+}
+
+interface PricingTier {
+  name: string;
+  price: string;
+  period: string;
+  bestFor: string;
+  whatsIncluded: string;
+}
+
+interface PricingCategory {
+  id: string;
+  categoryTitle: string;
+  focus: string;
+  tiers: PricingTier[];
 }
 
 export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick }) => {
@@ -12,52 +27,54 @@ export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
-  const pricingTiers = [
+  const pricingCategories: PricingCategory[] = [
     {
-      name: 'First Qualified Meeting',
-      badge: 'FIRST MEETING FREE',
-      price: '$0',
-      period: 'your first meeting',
-      description: 'Your first qualified meeting is completely on us.',
-      highlight: true,
-      features: [
-        'Verified hiring opportunity',
-        'Relevant decision-maker',
-        'Active hiring need',
-        'Direct meeting booking',
-        'No upfront commitment',
+      id: 'staffing-agencies',
+      categoryTitle: 'Category 1: Staffing Agencies',
+      focus: 'Contract, temp, and volume workforce solutions.',
+      tiers: [
+        {
+          name: 'Tier 1 — Standard Roles',
+          price: '$99',
+          period: '/ Meeting',
+          bestFor: 'Light industrial, general staffing, administrative, and frontline contract roles.',
+          whatsIncluded:
+            'Outbound sequencing to operations managers and facility leads needing immediate high-volume headcount.',
+        },
+        {
+          name: 'Tier 2 — Specialized / Senior Staffing',
+          price: '$149',
+          period: '/ Meeting',
+          bestFor:
+            'IT/Tech staff augmentation, healthcare/clinical staffing, and specialized engineering contractors.',
+          whatsIncluded:
+            'Advanced targeting for hard-to-reach technical department heads, project directors, and clinical coordinators.',
+        },
       ],
-      ctaText: 'Claim Your Free Meeting',
     },
     {
-      name: 'Standard / Mid-Level',
-      price: '$149',
-      period: '/ qualified meeting',
-      description: 'For specialist and mid-level hiring needs.',
-      highlight: false,
-      features: [
-        'Verified hiring opportunity',
-        'Relevant decision-maker',
-        'Role & hiring need confirmed',
-        'Niche & geography matched',
-        'Direct calendar booking',
+      id: 'recruitment-agencies',
+      categoryTitle: 'Category 2: Recruitment Agencies',
+      focus: 'Permanent placement and direct-hire search.',
+      tiers: [
+        {
+          name: 'Tier 1 — Middle to Senior-Level Roles',
+          price: '$149',
+          period: '/ Meeting',
+          bestFor:
+            'Standard permanent recruitment campaigns targeting mid-management, department heads, and professional roles.',
+          whatsIncluded:
+            'Outbound targeting to HR directors, hiring managers, and department leads with active permanent headcount budgets.',
+        },
+        {
+          name: 'Tier 2 — Executive-Level Roles',
+          price: '$199',
+          period: '/ Meeting',
+          bestFor: 'C-suite, VP-level, and executive search mandates.',
+          whatsIncluded:
+            'Highly bespoke, white-glove executive headhunting to book meetings directly with Board members, Founders, and C-level executives.',
+        },
       ],
-      ctaText: 'Get Started',
-    },
-    {
-      name: 'Senior / Executive',
-      price: '$199',
-      period: '/ qualified meeting',
-      description: 'For senior leadership and executive hiring needs.',
-      highlight: false,
-      features: [
-        'Verified decision-maker',
-        'Active executive hiring need',
-        'Role & requirements confirmed',
-        'Targeted company matching',
-        'Direct calendar booking',
-      ],
-      ctaText: 'Get Started',
     },
   ];
 
@@ -95,94 +112,101 @@ export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick
       className="py-24 md:py-32 relative border-t border-[#0B2344] bg-[#05080D] overflow-hidden"
     >
       {/* Ambient glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#071A33]/35 blur-[140px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#071A33]/35 blur-[140px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#08111F] border border-[#0B2344] text-[#AAB7C7] text-xs font-mono mb-4 shadow-sm">
-            <span>Transparent Pricing</span>
+            <span>Pricing</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-[#F5F7FA] mb-4">
-            Pay Only For Results
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] text-[#F5F7FA]">
+            PRICING
           </h2>
-          <p className="text-base sm:text-lg text-[#AAB7C7] leading-relaxed font-normal">
-            No retainers. No setup fees. Try your first qualified meeting for free.
-          </p>
         </div>
 
-        {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-24">
-          {pricingTiers.map((tier, idx) => (
-            <div
-              key={idx}
-              className={`rounded-2xl p-7 lg:p-8 flex flex-col justify-between transition-all duration-200 relative ${
-                tier.highlight
-                  ? 'bg-gradient-to-b from-[#08111F] via-[#0A1930] to-[#08111F] border-2 border-[#00D9FF]/70 shadow-[0_0_35px_rgba(0,217,255,0.2),0_12px_40px_rgba(0,0,0,0.8)] scale-100 lg:-translate-y-2'
-                  : 'bg-[#08111F] border border-[#0B2344] hover:border-[#1688FF]/50 shadow-sm'
-              }`}
-            >
-              {tier.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00D9FF] to-[#1688FF] text-[#05080D] text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,217,255,0.6)]">
-                  <Sparkles className="w-3 h-3 text-[#05080D]" />
-                  <span>{tier.badge}</span>
-                </div>
-              )}
-
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-[#F5F7FA] tracking-tight">
-                    {tier.name}
-                  </h3>
-                </div>
-
-                {/* Price Display */}
-                <div className="mb-4">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#F5F7FA]">
-                      {tier.price}
-                    </span>
-                    {tier.period && (
-                      <span className="text-xs font-mono text-[#AAB7C7]">
-                        {tier.period}
-                      </span>
-                    )}
+        {/* Pricing Categories */}
+        <div className="space-y-12 mb-24 max-w-6xl mx-auto">
+          {pricingCategories.map((category) => (
+            <div key={category.id} className="space-y-6">
+              {/* Category Header Card */}
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#08111F] border border-[#0B2344] relative shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F5F7FA]">
+                      {category.categoryTitle}
+                    </h3>
                   </div>
-                </div>
-
-                <p className="text-sm text-[#AAB7C7] mb-6 leading-relaxed">
-                  {tier.description}
-                </p>
-
-                {/* Features List */}
-                <div className="space-y-3 pt-4 border-t border-[#0B2344] mb-8">
-                  {tier.features.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F5F7FA]">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                        tier.highlight
-                          ? 'bg-[#00D9FF] text-[#05080D]'
-                          : 'bg-[#0A1930] border border-[#0B2344] text-[#00D9FF]'
-                      }`}>
-                        <Check className="w-2.5 h-2.5" />
-                      </div>
-                      <span>{feature}</span>
-                    </div>
-                  ))}
+                  <div className="md:text-right max-w-md">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#00D9FF] font-semibold block mb-1">
+                      Focus:
+                    </span>
+                    <p className="text-sm sm:text-base text-[#F5F7FA] font-medium leading-snug">
+                      {category.focus}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Card Action Button */}
-              <button
-                onClick={() => onCtaClick(tier.highlight ? 'pricing_free_tier' : `pricing_${idx}`)}
-                className={`w-full py-3.5 px-4 rounded-xl font-semibold text-xs tracking-tight transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 ${
-                  tier.highlight
-                    ? 'bg-gradient-to-r from-[#1688FF] via-[#00D9FF] to-[#1688FF] text-[#05080D] font-bold shadow-[0_0_20px_rgba(0,217,255,0.4)] hover:shadow-[0_0_30px_rgba(0,217,255,0.7)] hover:brightness-110 active:scale-[0.99]'
-                    : 'bg-[#0A1930] text-[#F5F7FA] hover:bg-[#0D2140] border border-[#0B2344] hover:border-[#1688FF]/50 active:scale-[0.99]'
-                }`}
-              >
-                <span>{tier.ctaText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              {/* Tiers Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                {category.tiers.map((tier, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-2xl p-7 lg:p-8 flex flex-col justify-between bg-[#08111F] border border-[#0B2344] hover:border-[#1688FF]/50 transition-all duration-200 shadow-sm relative"
+                  >
+                    <div>
+                      {/* Tier Name */}
+                      <h4 className="text-xl font-bold text-[#F5F7FA] tracking-tight mb-4">
+                        {tier.name}
+                      </h4>
+
+                      {/* Price Display */}
+                      <div className="mb-6 pb-6 border-b border-[#0B2344]">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#F5F7FA]">
+                            {tier.price}
+                          </span>
+                          <span className="text-sm font-mono text-[#AAB7C7]">
+                            {tier.period}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Best for */}
+                      <div className="mb-5">
+                        <span className="text-xs font-mono uppercase tracking-wider text-[#00D9FF] font-semibold block mb-1.5">
+                          Best for:
+                        </span>
+                        <p className="text-sm text-[#AAB7C7] leading-relaxed">
+                          {tier.bestFor}
+                        </p>
+                      </div>
+
+                      {/* What's included */}
+                      <div className="mb-8">
+                        <span className="text-xs font-mono uppercase tracking-wider text-[#00D9FF] font-semibold block mb-1.5">
+                          What's included:
+                        </span>
+                        <p className="text-sm text-[#AAB7C7] leading-relaxed">
+                          {tier.whatsIncluded}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Card Action Button */}
+                    <div className="pt-2">
+                      <button
+                        onClick={() => onCtaClick(`pricing_${category.id}_tier_${idx + 1}`)}
+                        className="w-full py-3.5 px-4 rounded-xl font-semibold text-xs tracking-tight transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 bg-[#0A1930] text-[#F5F7FA] hover:bg-[#0D2140] border border-[#0B2344] hover:border-[#1688FF]/50 hover:text-[#00D9FF] active:scale-[0.99]"
+                      >
+                        <span>Get Started</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
