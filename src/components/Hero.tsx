@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D9FF] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D9FF] shadow-[0_0_8px_#00d9ff]"></span>
             </span>
-            <span className="text-[#F5F7FA] font-semibold">Exclusively for Recruitment Agencies</span>
+            <span className="text-[#F5F7FA] font-semibold">Exclusively for Recruitment & Staffing Agencies</span>
             <span className="text-[#0B2344]">•</span>
             <span className="text-[#AAB7C7] font-mono text-[11px]">100% Performance-Based</span>
           </div>
@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
             id="hero-subheading"
             className="text-lg sm:text-xl text-[#AAB7C7] leading-relaxed max-w-2xl mx-auto mb-10 font-normal"
           >
-            We connect recruitment agencies with companies that are actively
+            Bridgx connects recruitment and staffing agencies with companies that are actively
             hiring — turning hiring demand into qualified conversations.
           </p>
 

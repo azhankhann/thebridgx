@@ -12,7 +12,7 @@ export const HowItWorksSection: React.FC<HowItWorksProps> = ({ onCtaClick }) => 
       title: 'Align',
       tagline: 'Define your ideal search profile',
       description:
-        'We pinpoint your specific recruitment niches, fee structures, seniority levels, and geographic focus.',
+        'We pinpoint your specific recruitment and staffing niches, fee structures, seniority levels, and geographic focus.',
       icon: Target,
     },
     {
@@ -59,7 +59,7 @@ export const HowItWorksSection: React.FC<HowItWorksProps> = ({ onCtaClick }) => 
           </h2>
           <p className="text-base sm:text-lg text-[#AAB7C7] leading-relaxed font-normal">
             A continuous four-stage connection process engineered to turn active
-            hiring demand into signed recruitment agreements.
+            hiring demand into signed recruitment and staffing agreements.
           </p>
         </div>
 

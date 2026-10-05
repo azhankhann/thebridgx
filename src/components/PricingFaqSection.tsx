@@ -82,7 +82,7 @@ export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick
     {
       question: 'What counts as a qualified meeting?',
       answer:
-        'A meeting is qualified ONLY when: (1) You meet directly with an authorized hiring decision-maker (e.g. Founder, VP, Department Head, or Head of Talent); (2) The company has verified, funded, open hiring requirements in your specific niche; and (3) The prospect attends the call and is open to engaging an external recruitment agency partner. If any of these conditions are not met, the meeting is disqualified and you are not charged.',
+        'A meeting is qualified ONLY when: (1) You meet directly with an authorized hiring decision-maker (e.g. Founder, VP, Department Head, or Head of Talent); (2) The company has verified, funded, open hiring requirements in your specific niche; and (3) The prospect attends the call and is open to engaging an external recruitment or staffing agency partner. If any of these conditions are not met, the meeting is disqualified and you are not charged.',
     },
     {
       question: 'Do I have to sign a monthly contract?',
@@ -95,9 +95,9 @@ export const PricingFaqSection: React.FC<PricingFaqSectionProps> = ({ onCtaClick
         'We combine proprietary growth-signal monitoring (tracking active job listings, recent funding rounds, team expansion velocity, and new department formations) with targeted, personalized human outreach. We engage decision-makers at the exact moment they experience hiring bottlenecks.',
     },
     {
-      question: 'Which recruitment niches do you work with?',
+      question: 'Which recruitment and staffing niches do you work with?',
       answer:
-        'We work across all major specialized recruitment verticals, including Technology & Software Engineering, Finance & Private Equity, Healthcare & Biotech, Sales & Marketing, Construction & Engineering, and Executive Search. During onboarding, we calibrate the targeting to your exact specialty.',
+        'We work across all major specialized recruitment and staffing verticals, including Technology & Software Engineering, Finance & Private Equity, Healthcare & Biotech, Sales & Marketing, Construction & Engineering, and Executive Search. During onboarding, we calibrate the targeting to your exact specialty.',
     },
     {
       question: 'What happens after my first meeting?',

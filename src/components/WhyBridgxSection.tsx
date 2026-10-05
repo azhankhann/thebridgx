@@ -26,7 +26,7 @@ export const WhyBridgxSection: React.FC<WhyBridgxProps> = ({ onCtaClick }) => {
       title: 'Active hiring opportunities',
       highlight: 'High-Intent Demand',
       description:
-        'No cold conversations or speculative intros. We exclusively target companies with currently funded, active job openings looking for recruitment support.',
+        'No cold conversations or speculative intros. We exclusively target companies with currently funded, active job openings looking for recruitment and staffing support.',
     },
     {
       icon: Crosshair,
@@ -56,7 +56,7 @@ export const WhyBridgxSection: React.FC<WhyBridgxProps> = ({ onCtaClick }) => {
             </h2>
             <p className="text-base sm:text-lg text-[#AAB7C7] mt-4 leading-relaxed font-normal">
               A model built specifically around the business economics of modern
-              recruitment agencies.
+              recruitment and staffing agencies.
             </p>
           </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "Remix Bridgx — The Bridge to Your Next Client",
-  "description": "We connect recruitment agencies with companies that are actively hiring — turning hiring demand into qualified conversations.",
+  "description": "Bridgx connects recruitment and staffing agencies with companies that are actively hiring — turning hiring demand into qualified conversations.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

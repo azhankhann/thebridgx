@@ -53,7 +53,7 @@ export const ProblemSection: React.FC<ProblemSectionProps> = ({ onCtaClick }) =>
           </h2>
 
           <p className="text-base sm:text-lg text-[#AAB7C7] leading-relaxed font-normal">
-            Recruitment agencies thrive when their consultants focus on what they do
+            Recruitment and staffing agencies thrive when their consultants focus on what they do
             best: matching top-tier talent with open client mandates. But without a
             reliable stream of new business, recruiters spend half their week on
             unpredictable business development and cold prospecting.

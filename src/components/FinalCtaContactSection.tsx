@@ -73,7 +73,7 @@ export const FinalCtaContactSection: React.FC = () => {
     }
 
     if (!formData.agencyName.trim()) {
-      setErrorMsg('Please enter your recruitment agency name.');
+      setErrorMsg('Please enter your agency name.');
       return;
     }
 
@@ -157,7 +157,7 @@ export const FinalCtaContactSection: React.FC = () => {
 
             <p className="text-base sm:text-lg text-[#AAB7C7] leading-relaxed mb-8 font-normal">
               Connect with companies that have verified open roles right now. Fill
-              out the form to claim your first qualified recruitment meeting
+              out the form to claim your first qualified client meeting
               completely free of charge.
             </p>
 
@@ -291,14 +291,14 @@ export const FinalCtaContactSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Recruitment Agency & Niche */}
+                  {/* Agency & Niche */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
                         htmlFor="agencyName"
                         className="block text-xs font-medium text-[#F5F7FA] mb-1.5"
                       >
-                        Recruitment Agency <span className="text-[#00D9FF]">*</span>
+                        Recruitment / Staffing Agency <span className="text-[#00D9FF]">*</span>
                       </label>
                       <input
                         type="text"
@@ -317,7 +317,7 @@ export const FinalCtaContactSection: React.FC = () => {
                         htmlFor="niche"
                         className="block text-xs font-medium text-[#F5F7FA] mb-1.5"
                       >
-                        What do you recruit for?
+                        What do you recruit or staff for?
                       </label>
                       <select
                         id="niche"

@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-3">
             <BridgxLogo variant="wordmark" size="sm" theme="dark" showGlow={true} />
             <span className="text-[#0B2344]">|</span>
-            <span className="text-[#AAB7C7] text-xs">The bridge between recruitment agencies and hiring companies.</span>
+            <span className="text-[#AAB7C7] text-xs">The bridge between recruitment & staffing agencies and hiring companies.</span>
           </div>
 
           {/* Quick Nav Anchors */}
@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#AAB7C7]">
           <p>© {new Date().getFullYear()} Bridgx Technologies Inc. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span>Pay-per-meeting B2B client acquisition for search firms</span>
+            <span>Pay-per-meeting B2B client acquisition for recruitment & staffing agencies</span>
             <span>•</span>
             <span className="text-[#00D9FF] font-medium flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse shadow-[0_0_6px_#00d9ff]" />
